@@ -35,11 +35,15 @@ def make_prompt_no_schema(user_message, input):
             ]
 
 
-def make_prompt_with_schema(schema):
+def make_prompt_with_schema(schema, number):
 
-    return [{"role": "system", "content": f"Generate example data for given json schema by user and of the schema is invalid just return none. The output should be in json format "},
+    return [{"role": "system", "content": f"Generate {number} example data for given json schema by user and of the schema is invalid just return none. The output should be strictly in json array format  with key as data"},
             {"role": "user", "content": f"{schema}"}
             ]
+
+
+def get_content(response):
+    return response.content
 
 
 def underscorify(input):
@@ -54,8 +58,8 @@ def generate_single_field(input, number):
     return response
 
 
-def generate_from_schema(schema):
-    message = make_prompt_with_schema(schema)
+def generate_from_schema(schema, limit):
+    message = make_prompt_with_schema(schema, limit)
     response = gptservice(message)
     return response
 
