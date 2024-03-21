@@ -4,6 +4,11 @@ import os
 from pathlib import Path
 import json
 from jsonschema import validate
+import pandas as pd
+from pyfiglet import Figlet
+from tabulate import tabulate
+from termcolor import colored
+
 
 load_dotenv()
 
@@ -72,3 +77,33 @@ def gptservice(message):
     )
 
     return completion.choices[0].message
+
+
+def welcome_message():
+    GREEN = '\033[92m'
+    ENDC = '\033[0m'
+    f = Figlet(font='slant')
+    welcome_message = f.renderText("Welcome to DDGen!")
+    print(f"{GREEN}{welcome_message}{ENDC}")
+
+
+def print_colored_df(df):
+    pd.set_option('display.max_columns', 10)
+    pd.set_option('display.max_rows', 10)
+    pd.set_option('display.width', 100)
+    pd.set_option('display.colheader_justify', 'center')
+    table = tabulate(df, headers='keys', tablefmt='grid', showindex=False)
+    lines = table.split('\n')
+
+    lines[1] = colored(lines[1], 'red')
+    for line in lines:
+        if '---' in line:
+            print(colored(line, 'yellow'))
+        elif lines.index(line) == 1:
+            print(colored(line, 'red'))
+        else:
+            print(colored(line, 'white'))
+
+
+def sttolist(str):
+    return str.split(",")
