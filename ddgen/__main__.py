@@ -1,18 +1,19 @@
+import os
 from pathlib import Path
-from ddgen import generate_and_get_json, generate_and_get_json_from_shema
 import argparse
 import json
 import pandas as pd
+from pprint import pprint
+from .ddgen import Ddgen
 
 
-if __name__ == "__main__":
-
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         'type', choices=["json", "csv"], help="Type of data to be produced")
     parser.add_argument("--schema", action="store_true",
                         help="flag to generate json from json schema")
-    parser.add_argument("--path", help="Path of Json schema")
+    parser.add_argument("--path", default=None, help="Path of Json schema")
 
     parser.add_argument("fields",
                         nargs='*', help="Enter name of the fields")
@@ -23,24 +24,22 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    if args.type == "json" or "csv":
-        if args.schema:
-            output = generate_and_get_json_from_shema(args.path, args.limit)
+    script_path = os.path.abspath(
+        args.path) if args.path is not None else args.path
 
-        if args.schema != True:
-            output = generate_and_get_json(args.fields, args.limit)
+    output_path = os.path.abspath(
+        args.output_path) if args.output_path is not None else args.output_path
 
-        if args.type == "json":
-            if args.output_path is not None:
-                with open(Path(f"{args.output_path}/output.json"), 'w') as file:
-                    json.dump(output, file)
-            print(output)
+    ddgen = Ddgen(type=args.type)
 
-        if args.type == "csv":
-            output_data = output.get("data", output)
-            df = pd.json_normalize(output_data)
-            df.to_csv('output.csv', index=False, encoding='utf-8')
-            print(df)
-            if args.output_path is not None:
-                df.to_csv(Path(f"{args.output_path}/output.csv"),
-                          index=False, encoding='utf-8')
+    output = ddgen.generate(
+        limit=args.limit, fields=args.fields, schema_path=script_path)
+
+    pprint(output, indent=2)
+
+    if (output_path):
+        ddgen.save_to_path(output, output_path)
+
+
+if __name__ == "__main__":
+    main()

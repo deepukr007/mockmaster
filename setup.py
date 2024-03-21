@@ -16,10 +16,16 @@ setup(
     keywords="data dummy",
     packages=['ddgen'],
     long_description=read('README.md'),
+
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Topic :: Utilities",
         "License :: OSI Approved :: Apache 2.0",
     ],
-    install_requires=['openai', 'pandas', "jsonschema", "python-dotenv"]
+    install_requires=['openai', 'pandas', "jsonschema", "python-dotenv"],
+    entry_points={
+        'console_scripts': [
+            'ddgen = ddgen.__main__:main',
+        ],
+    }
 )
