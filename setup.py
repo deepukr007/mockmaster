@@ -7,14 +7,14 @@ def read(fname):
 
 
 setup(
-    name="ddgen",
+    name="Mockmaster",
     version="0.0.1",
-    author="Deepu Krishnareddy , Harish M",
-    author_email="deepukreddy007@gmail.com",
+    author="Deepu Krishnareddy , Harish Mohan",
+    author_email="deepukreddy007@gmail.com , Harishmohan1598@gmail.com",
     description=("A CLI tool to generate dummy data "),
     license="Apache 2.0",
     keywords="data dummy",
-    packages=['ddgen'],
+    packages=['mockmaster'],
     long_description=read('README.md'),
 
     classifiers=[
@@ -26,7 +26,7 @@ setup(
                       "jsonschema", "python-dotenv", "pyfiglet", "tabulate", "termcolor"],
     entry_points={
         'console_scripts': [
-            'ddgen = ddgen.cli:main',
+            'mockmaster = mockmaster.cli:main',
         ],
     }
 )
