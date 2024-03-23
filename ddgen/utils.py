@@ -1,5 +1,4 @@
 from openai import OpenAI
-from dotenv import load_dotenv
 import os
 from pathlib import Path
 import json
@@ -8,15 +7,12 @@ import pandas as pd
 from pyfiglet import Figlet
 from tabulate import tabulate
 from termcolor import colored
+from dotenv import load_dotenv, set_key
 
-
-load_dotenv()
-
-api_key = os.getenv("OPENAI_API_KEY")
-
-client = OpenAI(
-    api_key=api_key
-)
+GREEN = '\033[92m'
+YELLOW = '\033[93m'
+RED = '\033[91m'
+ENDC = '\033[0m'
 
 
 def get_json_schema(schema_path):
@@ -80,11 +76,56 @@ def gptservice(message):
 
 
 def welcome_message():
-    GREEN = '\033[92m'
-    ENDC = '\033[0m'
     f = Figlet(font='slant')
     welcome_message = f.renderText("Welcome to DDGen!")
     print(f"{GREEN}{welcome_message}{ENDC}")
+
+
+def init_openai_client(api_key):
+    global client
+    client = OpenAI(
+        api_key=api_key
+    )
+    return client
+
+
+def get_set_api_key(change_key=False):
+    env_file = Path(os.path.abspath(".env"))
+    api_key = os.environ.get("OPENAI_API_KEY")
+
+    if env_file.is_file():
+        load_dotenv(env_file)
+        api_key = os.environ.get("OPENAI_API_KEY")
+    else:
+        env_file.touch()
+
+    if (api_key):
+        if (change_key):
+            prompt = input(
+                "Do you want to replace existing API key ? (Y/n) ")
+            if (prompt.lower() == "y"):
+                api_key = input("Enter API Key : ")
+                os.environ["OPENAI_API_KEY"] = api_key.strip()
+                set_key(env_file, "OPENAI_API_KEY",
+                        os.environ["OPENAI_API_KEY"])
+                print("API key is changed")
+                return api_key
+            else:
+                print("API key is not changed")
+                return api_key
+        return api_key
+
+    else:
+        prompt = input(
+            "No API key found,Do you want to store new API Key ? (Y/n) ")
+        if (prompt.lower() == "y"):
+            api_key = input("Enter API Key : ")
+            os.environ["OPENAI_API_KEY"] = api_key.strip()
+            set_key(env_file, "OPENAI_API_KEY",
+                    os.environ["OPENAI_API_KEY"])
+            print("API key is added")
+            return api_key
+    return None
 
 
 def print_colored_df(df):
@@ -107,3 +148,21 @@ def print_colored_df(df):
 
 def sttolist(str):
     return str.split(",")
+
+
+def print_instructions():
+    instructions = f"""
+        {GREEN}Instructions:{ENDC}
+        {YELLOW}- Use 'generate' for data generation mode after initialising
+        - Use the 'json' argument to output data in JSON format.
+        - Use the 'csv' argument to output data in CSV format.
+        - Use '--schema' followed by a path to generate data from a JSON schema.
+        - Use '--limit' followed by a number to specify the number of data entries.
+        - Provide field names as additional arguments to generate specific fields.{ENDC}
+
+        {GREEN}Example usage:{ENDC}
+        {YELLOW}ddgen generate csv name place --limit 10
+        ddgen generate json name place gender --limit 18
+        ddgen generate json --schema schema.json --limit 5{ENDC}
+        """
+    print(instructions)

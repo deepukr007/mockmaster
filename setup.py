@@ -9,7 +9,7 @@ def read(fname):
 setup(
     name="ddgen",
     version="0.0.1",
-    author="Deepu Krishnareddy",
+    author="Deepu Krishnareddy , Harish M",
     author_email="deepukreddy007@gmail.com",
     description=("A CLI tool to generate dummy data "),
     license="Apache 2.0",
@@ -22,10 +22,11 @@ setup(
         "Topic :: Utilities",
         "License :: OSI Approved :: Apache 2.0",
     ],
-    install_requires=['openai', 'pandas', "jsonschema", "python-dotenv"],
+    install_requires=['openai', 'pandas',
+                      "jsonschema", "python-dotenv", "pyfiglet", "tabulate", "termcolor"],
     entry_points={
         'console_scripts': [
-            'ddgen = ddgen.__main__:main',
+            'ddgen = ddgen.cli:main',
         ],
     }
 )
