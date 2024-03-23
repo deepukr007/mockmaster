@@ -40,10 +40,10 @@ def main():
     if (args.which == "init"):
         welcome_message()
         print_instructions()
-        get_set_api_key(change_key=True)
+        get_set_api_key(change=True)
 
     elif (args.which == "gen"):
-        api_key = get_set_api_key(change_key=False)
+        api_key = get_set_api_key(change=False)
         init_openai_client(api_key)
 
         script_path = os.path.abspath(

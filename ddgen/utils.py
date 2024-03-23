@@ -38,7 +38,7 @@ def make_prompt_no_schema(user_message, input):
 
 def make_prompt_with_schema(schema, number):
 
-    return [{"role": "system", "content": f"Generate {number} example data for given json schema by user and of the schema is invalid just return none. The output should be strictly in json array format  with key as data"},
+    return [{"role": "system", "content": f"Generate {number} example data for given json schema by user. The output should be strictly in json array format  with key as data"},
             {"role": "user", "content": f"{schema}"}
             ]
 
@@ -89,7 +89,7 @@ def init_openai_client(api_key):
     return client
 
 
-def get_set_api_key(change_key=False):
+def get_set_api_key(change=False):
     env_file = Path(os.path.abspath(".env"))
     api_key = os.environ.get("OPENAI_API_KEY")
 
@@ -100,19 +100,18 @@ def get_set_api_key(change_key=False):
         env_file.touch()
 
     if (api_key):
-        if (change_key):
-            prompt = input(
-                "Do you want to replace existing API key ? (Y/n) ")
-            if (prompt.lower() == "y"):
-                api_key = input("Enter API Key : ")
-                os.environ["OPENAI_API_KEY"] = api_key.strip()
-                set_key(env_file, "OPENAI_API_KEY",
-                        os.environ["OPENAI_API_KEY"])
-                print("API key is changed")
-                return api_key
-            else:
-                print("API key is not changed")
-                return api_key
+        if (change):
+            if (set):
+                prompt = input(
+                    "Do you want to replace existing API key ? (Y/n) ")
+                if (prompt.lower() == "y"):
+                    api_key = input("Enter API Key : ")
+                    os.environ["OPENAI_API_KEY"] = api_key.strip()
+                    set_key(env_file, "OPENAI_API_KEY",
+                            os.environ["OPENAI_API_KEY"])
+                    print("API key is changed")
+                else:
+                    print("API key is not changed")
         return api_key
 
     else:
