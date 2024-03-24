@@ -8,7 +8,7 @@ def read(fname):
 
 setup(
     name="mockmaster",
-    version="0.0.1",
+    version="0.0.2",
     author="Deepu Krishnareddy , Harish Mohan",
     author_email="deepukreddy007@gmail.com , Harishmohan1598@gmail.com",
     description=("A CLI tool to generate dummy data "),
@@ -16,6 +16,8 @@ setup(
     keywords="data dummy",
     packages=['mockmaster'],
     long_description=read('README.md'),
+    long_description_content_type='text/markdown',
+
 
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
