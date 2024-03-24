@@ -29,25 +29,28 @@ It can be used to bootstrap your database , serve dummy data to test out your fr
 
 ### Step 1: Installation
 
+#### Install from pip
+```
+pip install mockmaster==0.0.2
+```
+
 #### Installing from source
 
 ```
 git clone https://github.com/deepukr007/mockmaster.git
 cd mockmaster
 ```
-
-### Step 2:
 ```
 pip install .
 ```
 
-### Step 3:
+### Step 2:
 Set or edit openAI API key and store it in .env file 
 ```
 mockmaster init
 ```
 
-### Step 4:
+### Step 3:
 
 Example 1: Json with fields
 ```
