@@ -3,6 +3,11 @@
 A CLI tool to generate dummy data in various formats using GPT ,designed to meet diverse needs of software engineers .
 It can be used to bootstrap your database , serve dummy data to test out your frontend etc..
 
+## Table of contents
+- [Features](#features)
+- [Basic Usage](#basic-usage)
+- [Authors](#authors)
+
 ## Features
 - :books:	Generate data in json or csv format ( more will be added)
 - :toolbox:	 Generate data for dynamic fields with no fixed vocabulary.
@@ -47,6 +52,10 @@ Example 3:
 ```
 mockmaster generate csv name place age zip_code --limit 10 -o <output_path>
 ```
+
+#### Authors
+-  Deepu Krishnareddy
+-  Harish Mohan
 
 
 
