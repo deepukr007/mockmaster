@@ -3,6 +3,8 @@
 A CLI tool to generate dummy data in various formats using GPT ,designed to meet diverse needs of software engineers .
 It can be used to bootstrap your database , serve dummy data to test out your frontend etc..
 
+![Welcome](https://github.com/deepukr007/mockmaster/blob/main/images/terminal.png)
+
 ## Table of contents
 - [Features](#features)
 - [Basic Usage](#basic-usage)
