@@ -7,7 +7,7 @@ def read(fname):
 
 
 setup(
-    name="Mockmaster",
+    name="mockmaster",
     version="0.0.1",
     author="Deepu Krishnareddy , Harish Mohan",
     author_email="deepukreddy007@gmail.com , Harishmohan1598@gmail.com",
