@@ -12,7 +12,7 @@ setup(
     author="Deepu Krishnareddy , Harish Mohan",
     author_email="deepukreddy007@gmail.com , Harishmohan1598@gmail.com",
     description=("A CLI tool to generate dummy data "),
-    license="Apache 2.0",
+    license="MIT",
     keywords="data dummy",
     packages=['mockmaster'],
     long_description=read('README.md'),
@@ -20,7 +20,6 @@ setup(
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Topic :: Utilities",
-        "License :: OSI Approved :: Apache 2.0",
     ],
     install_requires=['openai', 'pandas',
                       "jsonschema", "python-dotenv", "pyfiglet", "tabulate", "termcolor"],

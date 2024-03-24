@@ -77,7 +77,7 @@ def gptservice(message):
 
 def welcome_message():
     f = Figlet(font='slant')
-    welcome_message = f.renderText("Welcome to DDGen!")
+    welcome_message = f.renderText("Welcome to MockMaster!")
     print(f"{GREEN}{welcome_message}{ENDC}")
 
 
@@ -160,8 +160,8 @@ def print_instructions():
         - Provide field names as additional arguments to generate specific fields.{ENDC}
 
         {GREEN}Example usage:{ENDC}
-        {YELLOW}ddgen generate csv name place --limit 10
-        ddgen generate json name place gender --limit 18
-        ddgen generate json --schema schema.json --limit 5{ENDC}
+        {YELLOW}mockmaster generate csv name place --limit 10
+        mockmaster generate json name place gender --limit 18
+        mockmaster generate json --schema schema.json --limit 5{ENDC}
         """
     print(instructions)
